@@ -61,6 +61,26 @@ class Container implements \ArrayAccess
     return $this->set($name, $value . $this->get($name));
   }
 
+  /** Все значения в виде массива */
+  public function toArray()
+  {
+    return $this->vars;
+  }
+
+  /** Загрузка значений из массива. $clear - затереть существующие данные */
+  public function fromArray(array $array, $clear = false)
+  {
+    if ($clear) {
+      $this->vars = array();
+    }
+
+    foreach ($array as $key=>$val) {
+      $this->set($key, $val);
+    }
+
+    return $this;
+  }
+
   //ArrayAccess
 
   public function offsetExists($offset)

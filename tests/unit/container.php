@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__.'/../init.php';
+require_once __DIR__ . '/../init.php';
 
 use CMSx\Container;
 
@@ -62,5 +62,25 @@ class ContainerTest extends PHPUnit_Framework_TestCase
     $this->assertFalse($c->has('one'), 'Удаление значения');
 
     $this->assertFalse(isset($c['one']), 'Проверка отсутствия элемента');
+  }
+
+  function testToArray()
+  {
+    $c = new Container;
+    $c->set('one', 1)
+      ->set('two', 2);
+    $this->assertEquals(array('one' => 1, 'two' => 2), $c->toArray(), 'Приведение к массиву');
+  }
+
+  function testFromArray()
+  {
+    $a = array('two' => 2);
+    $c = new Container;
+    $c->set('one', 1);
+    $c->fromArray($a);
+    $this->assertEquals(array('one' => 1, 'two' => 2), $c->toArray(), 'Загрузка без затирания старых значений');
+
+    $c->fromArray($a, true);
+    $this->assertEquals($a, $c->toArray(), 'Загрузка с заменой старых значений');
   }
 }
