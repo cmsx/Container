@@ -19,6 +19,10 @@ class ContainerTest extends PHPUnit_Framework_TestCase
     $c->set('one', null);
     $this->assertFalse($c->has('one'), 'Значения уже нет');
     $this->assertFalse($c->get('one'), 'Значение было удалено');
+
+    $c->three = 3; // Не рекомендуется
+    $this->assertEquals(3, $c->get('three'), 'Обращение к свойствам');
+    $this->assertEquals(3, $c->three, 'Чтения свойства');
   }
 
   function testAppendPrepend()

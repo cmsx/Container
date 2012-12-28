@@ -81,6 +81,16 @@ class Container implements \ArrayAccess
     return $this;
   }
 
+  function __get($name)
+  {
+    return $this->get($name);
+  }
+
+  function __set($name, $value)
+  {
+    return $this->set($name, $value);
+  }
+
   //ArrayAccess
 
   public function offsetExists($offset)
